@@ -1,13 +1,23 @@
 Mars_rover kata
 
+Objects 
+Mars < Plateau(grid[x,y]), 
+Rover(postition, Direction)
+Messenger ( gives instructions and gets back position updates from the camera)
+Camera
+Navigation - interprets nasa and moves the object which it is assigned to
+Position - Gives Co-ordinates and position of the object we call it for.
+
 User Stories
 As a user,
 So that I can visit Mars, 
 I should be able to create a new Mars object
 
 
+
+
 As a user,
-So that I can create a plateau,
+So that I can create a grid,
 I should be able to set up a grid using x and y co-ordinates
 
 As a user,
