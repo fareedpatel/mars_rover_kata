@@ -2,8 +2,9 @@ class MarsRover
 
   ORIGIN = [0,0]
   INITIAL_ORIENTATION = :North
-  ONE_STEP_FORWARD = [0, 1]
-  ONE_STEP_BACKWARD = [0,-1]
+  LEFT = :west
+  RIGHT = :east
+
   attr_reader :coordinates, :orientation
 
   def initialize
@@ -20,9 +21,10 @@ class MarsRover
   end
 
   def receive_commands (command)
-    @coordinates = [0,1] if command == :M
-    @coordinates = [0,-1] if command == :B
-    broadcast_position
+    @coordinates = [0,1]
+    @orientation = :west if command == :left
+    @orientation = :east if command == :right
+    # @orientation = :south if command == :left & :left
   end
 
 end
