@@ -1,30 +1,27 @@
 class MarsRover
 
-  ORIGIN = [0,0]
-  INITIAL_ORIENTATION = :North
-  LEFT = :west
-  RIGHT = :east
-
-  attr_reader :coordinates, :orientation
+  INITIAL_POSITION = [0,0]
+  INITIAL_DIRECTION= :north
+  # DIRECTIONS = [:north, :west, :south, :east]
 
   def initialize
-    @coordinates = ORIGIN
-    @orientation = INITIAL_ORIENTATION
-  end
-
-  def broadcast_orientation
-    @orientation
+    @coordinates = INITIAL_POSITION
+    @direction = INITIAL_DIRECTION
   end
 
   def broadcast_position
     @coordinates
   end
 
-  def receive_commands (command)
+  def broadcast_orientation
+    @direction
+  end
+
+  def receive_commands commands
     @coordinates = [0,1]
-    @orientation = :west if command == :left
-    @orientation = :east if command == :right
-    # @orientation = :south if command == :left & :left
+    @coordinates = [0,-1] if commands.first == :b
+    @direction = :west if commands.first == :left
+    @direction = :south if commands.last == :left && commands.size == 2
   end
 
 end

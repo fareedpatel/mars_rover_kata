@@ -2,39 +2,41 @@ require 'mars_rover'
 
 describe MarsRover do
   let(:mars_rover) {MarsRover.new}
+  INITIAL_POSITION = [0,0]
 
-    it 'starts at 0,0' do
-      expect(mars_rover.broadcast_position).to eq([0,0])
+    it 'starts at the initial position' do
+      mars_rover = MarsRover.new
+      expect(mars_rover.broadcast_position).to eq INITIAL_POSITION
     end
 
     it 'moves forward' do
       ONE_STEP_FORWARD = [0,1]
-      mars_rover.receive_commands(:M)
+      mars_rover.receive_commands([:f])
       expect(mars_rover.broadcast_position).to eq(ONE_STEP_FORWARD)
     end
 
-    it 'gives the position it is facing' do
-      INITAL_ORIENTATION = :North
-      expect(mars_rover.broadcast_orientation).to eq(INITAL_ORIENTATION)
+    it 'moves backward' do
+      ONE_STEP_BACKWORD = [0,-1]
+      mars_rover.receive_commands([:b])
+      expect(mars_rover.broadcast_position).to eq(ONE_STEP_BACKWORD)
+    end
+
+    it 'is initially facing north' do
+      INITIAL_DIRECTION = :north
+      expect(mars_rover.broadcast_orientation).to eq(INITIAL_DIRECTION)
     end
 
     it 'turns left' do
       LEFT = :west
-      mars_rover.receive_commands(:left)
+      mars_rover.receive_commands([:left])
       expect(mars_rover.broadcast_orientation).to eq(LEFT)
-    end
-
-    it 'turns right' do
-      RIGHT = :east
-      mars_rover.receive_commands(:right)
-      expect(mars_rover.broadcast_orientation).to eq(RIGHT)
     end
 
     it 'allows a change in direction' do
       LEFT = :west
-      mars_rover.receive_commands[:left, :left]
-      expect(mars_rover.broadcast_orientation).to eq(South)
-      mars_rover.receive_command[:left, :left].to eq(North)
+      mars_rover.receive_commands([:left, :left])
+      expect(mars_rover.broadcast_orientation).to eq(:south)
+      # mars_rover.receive_command[:left, :left].to eq(North)
     end
 
 
